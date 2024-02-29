@@ -4,7 +4,11 @@
     <h2>Employee</h2>
     <a href="{{ route('employees.create') }}" class="btn btn-primary mb-3 float-end">Add Employees</a>
     <a href="{{ route('admin.home') }}" class="btn btn-success mb-3">Back</a>
-
+    @if (session('success'))
+    <div class="alert alert-success" >
+        {{ session('success') }}
+    </div>
+    @endif
     <table class="table" id="countriesTable">
         <thead>
             <tr>
@@ -12,6 +16,7 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>Phone</th>
+                <th>Company Name</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -46,10 +51,18 @@
 <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.min.js"></script>
 
-<script>
-    $j(document).ready(function() {
-        $j('#countriesTable').DataTable();
-    });
-</script>
+
+    <script>
+        $j(document).ready(function() {
+            $j('#countriesTable').DataTable();
+        });
+        var successMessage = document.getElementById('successMessage');
+
+        // Set a timeout to hide the success message after 5 seconds (5000 milliseconds)
+        setTimeout(function() {
+            successMessage.style.display = 'none';
+        }, 5000); // 5000 milliseconds = 5 seconds
+    </script>
+
 
 @endsection

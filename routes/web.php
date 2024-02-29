@@ -21,10 +21,15 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+Route::get('/register', function () {
+    return redirect('/login');
+});
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('admin/home', [HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
+// Route::get('admin/home', [HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
+
+Route::get('admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
 
 Route::resource('companies', CompanyController::class);
 

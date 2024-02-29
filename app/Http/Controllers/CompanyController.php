@@ -27,16 +27,67 @@ class CompanyController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    // public function store(Request $request)
+    // {
+    //     try {
+    //         $request->validate([
+    //             'name' => 'required',
+    //             'email' => 'nullable|email',
+    //             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:min_width=100,min_height=100',
+    //             //'website' => 'nullable',
+    //              'website' => 'nullable|url',
+    //             ] , [
+    //                 'name.required' => 'Company name is required.',
+    //                 'email.email' => 'Please provide a valid email address.',
+    //                 'logo.image' => 'Please upload a valid image file for the logo.',
+    //                 'logo.mimes' => 'The logo must be a file of type: jpeg, png, jpg, gif, svg.',
+    //                 'logo.max' => 'The logo may not be greater than 2048 kilobytes.',
+    //                 'logo.dimensions' => 'The logo must be at least 100x100 pixels.',
+    //                 'website.url' => 'Please provide a valid URL for the website.',
+    //             ]);
+
+    //         // Upload logo
+    //         if ($request->hasFile('logo')) {
+    //             $logoPath = $request->file('logo')->store('public/logo');
+    //             $logoFilename = str_replace('public/', '', $logoPath);
+    //         } else {
+    //             $logoFilename = null;
+    //         }
+
+    //         $companyData = $request->except('logo');
+    //         $companyData['logo'] = $logoFilename;
+
+    //         Company::create($companyData);
+
+    //         return redirect()->route('companies.index')
+    //             ->with('success', 'Company Data created successfully.');
+    //     }catch (\Exception $e) {
+    //         // Log the exception
+    //         \Illuminate\Support\Facades\Log::error($e->getMessage());
+
+    //         // Handle the exception or redirect with an error message
+
+    //         return redirect()->back()->with('error', 'An error occurred while processing your request.');
+    //     }
+    // }
     public function store(Request $request)
     {
-        try {
+
             $request->validate([
                 'name' => 'required',
                 'email' => 'nullable|email',
                 'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:min_width=100,min_height=100',
-                'website' => 'nullable',
-                // 'website' => 'nullable|url',
-            ]);
+                //'website' => 'nullable',
+                 'website' => 'nullable|url',
+                ] , [
+                    'name.required' => 'Company name is required.',
+                    'email.email' => 'Please provide a valid email address.',
+                    'logo.image' => 'Please upload a valid image file for the logo.',
+                    'logo.mimes' => 'The logo must be a file of type: jpeg, png, jpg, gif, svg.',
+                    'logo.max' => 'The logo may not be greater than 2048 kilobytes.',
+                    'logo.dimensions' => 'The logo must be at least 100x100 pixels.',
+                    'website.url' => 'Please provide a valid URL for the website.',
+                ]);
 
             // Upload logo
             if ($request->hasFile('logo')) {
@@ -52,14 +103,8 @@ class CompanyController extends Controller
             Company::create($companyData);
 
             return redirect()->route('companies.index')
-                ->with('success', 'Company created successfully.');
-        } catch (\Exception $e) {
-            // Log the exception
-            \Illuminate\Support\Facades\Log::error($e->getMessage());
+                ->with('success', 'Company Data created successfully.');
 
-            // Handle the exception or redirect with an error message
-            return redirect()->back()->with('error', 'An error occurred while processing your request.');
-        }
     }
 
     /**
